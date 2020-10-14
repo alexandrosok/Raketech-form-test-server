@@ -6,7 +6,64 @@ require('dotenv').config();
 
 const validations = {
     AddFormTitle: FormValidations.AddFormTitle,
-    AddCompanyDetails: FormValidations.AddCompanyDetails
+    AddCompanyDetails: FormValidations.AddCompanyDetails,
+    AddAbout: FormValidations.AddAbout
+};
+
+const GetAbout = (req, res) => {
+    http({
+        method: 'GET',
+        uri: `${process.env.HOST}/wp-json/raketech-form-test/v1/form/about/get`,
+        json: true,
+    })
+        .then((response) => {
+            res.status(200).send({
+                status: HttpResponse.Success,
+                message: "About Content",
+                about: response
+            }).end();
+
+        })
+        .catch((err) => {
+            res.status(400).send({
+                status: HttpResponse.Error,
+                message: "Something went wrong",
+                error: err
+            }).end();
+        });
+};
+
+const SetAbout = (req, res) => {
+
+    const errors = validationResult(req).array();
+
+    if (errors.length > 0) {
+        return res.status(409).json({errors: errors, success: false, type: "conflict"});
+    }
+
+    let {about} = req.body;
+    http({
+        method: 'POST',
+        uri: `${process.env.HOST}/wp-json/raketech-form-test/v1/form/about`,
+        json: true,
+        body: {about},
+    })
+        .then((response) => {
+            let {status, message, data} = JSON.parse(response);
+            res.status(200).send({
+                status,
+                message,
+                data
+            }).end();
+
+        })
+        .catch((err) => {
+            res.status(400).send({
+                status: HttpResponse.Error,
+                message: "Something went wrong",
+                error: err
+            }).end();
+        });
 };
 
 /**
@@ -150,6 +207,8 @@ const GetCompanyDetails = (req, res) => {
 module.exports = {
     validations,
     actions: {
+        GetAbout,
+        SetAbout,
         GetCompanyDetails,
         SetCompanyDetails,
         SetFormTitle,

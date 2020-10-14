@@ -8,4 +8,7 @@ router.get('/title/get', FormController.actions.GetFormTitle);
 router.post('/company-details', FormController.validations.AddCompanyDetails, FormController.actions.SetCompanyDetails);
 router.get('/company-details/get', FormController.actions.GetCompanyDetails);
 
+router.post('/about', FormController.validations.AddAbout, FormController.actions.SetAbout);
+router.get('/about/get', FormController.actions.GetAbout);
+
 module.exports = router;

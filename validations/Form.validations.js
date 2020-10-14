@@ -6,6 +6,9 @@ const FormValidations = {
     ],
     AddCompanyDetails: [
         body('CompanyDetails').isString()
+    ],
+    AddAbout: [
+        body('about').isString()
     ]
 };
 
