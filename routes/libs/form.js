@@ -11,4 +11,7 @@ router.get('/company-details/get', FormController.actions.GetCompanyDetails);
 router.post('/about', FormController.validations.AddAbout, FormController.actions.SetAbout);
 router.get('/about/get', FormController.actions.GetAbout);
 
+router.post('/submit-message', FormController.validations.AddSubmitMessage, FormController.actions.SetSubmitMessage);
+router.get('/submit-message/get', FormController.actions.GetSubmitMessage);
+
 module.exports = router;

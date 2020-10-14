@@ -9,6 +9,9 @@ const FormValidations = {
     ],
     AddAbout: [
         body('about').isString()
+    ],
+    AddSubmitMessage: [
+        body('message').isString()
     ]
 };
 

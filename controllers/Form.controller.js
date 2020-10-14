@@ -7,7 +7,64 @@ require('dotenv').config();
 const validations = {
     AddFormTitle: FormValidations.AddFormTitle,
     AddCompanyDetails: FormValidations.AddCompanyDetails,
-    AddAbout: FormValidations.AddAbout
+    AddAbout: FormValidations.AddAbout,
+    AddSubmitMessage: FormValidations.AddSubmitMessage
+};
+
+const SetSubmitMessage = (req, res) => {
+
+    const errors = validationResult(req).array();
+
+    if (errors.length > 0) {
+        return res.status(409).json({errors: errors, success: false, type: "conflict"});
+    }
+
+    let {message} = req.body;
+    http({
+        method: 'POST',
+        uri: `${process.env.HOST}/wp-json/raketech-form-test/v1/form/submit-message`,
+        json: true,
+        body: {message},
+    })
+        .then((response) => {
+            let {status, message, data} = JSON.parse(response);
+            res.status(200).send({
+                status,
+                message,
+                data
+            }).end();
+
+        })
+        .catch((err) => {
+            res.status(400).send({
+                status: HttpResponse.Error,
+                message: "Something went wrong",
+                error: err
+            }).end();
+        });
+};
+
+const GetSubmitMessage = (req, res) => {
+    http({
+        method: 'GET',
+        uri: `${process.env.HOST}/wp-json/raketech-form-test/v1/form/submit-message/get`,
+        json: true,
+    })
+        .then((response) => {
+            res.status(200).send({
+                status: HttpResponse.Success,
+                message: "Submit Message Stored",
+                submitMessage: response
+            }).end();
+
+        })
+        .catch((err) => {
+            res.status(400).send({
+                status: HttpResponse.Error,
+                message: "Something went wrong",
+                error: err
+            }).end();
+        });
 };
 
 const GetAbout = (req, res) => {
@@ -207,6 +264,8 @@ const GetCompanyDetails = (req, res) => {
 module.exports = {
     validations,
     actions: {
+        SetSubmitMessage,
+        GetSubmitMessage,
         GetAbout,
         SetAbout,
         GetCompanyDetails,
