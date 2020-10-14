@@ -27,13 +27,12 @@ const SetSubmitMessage = (req, res) => {
         body: {message},
     })
         .then((response) => {
-            let {status, message, data} = JSON.parse(response);
+            let {message, data} = JSON.parse(response);
             res.status(200).send({
-                status,
+                status: HttpResponse.Success,
                 message,
                 data
             }).end();
-
         })
         .catch((err) => {
             res.status(400).send({
@@ -53,7 +52,7 @@ const GetSubmitMessage = (req, res) => {
         .then((response) => {
             res.status(200).send({
                 status: HttpResponse.Success,
-                message: "Submit Message Stored",
+                message: "Submit Message Record",
                 submitMessage: response
             }).end();
 
@@ -79,7 +78,6 @@ const GetAbout = (req, res) => {
                 message: "About Content",
                 about: response
             }).end();
-
         })
         .catch((err) => {
             res.status(400).send({
@@ -106,9 +104,9 @@ const SetAbout = (req, res) => {
         body: {about},
     })
         .then((response) => {
-            let {status, message, data} = JSON.parse(response);
+            let {message, data} = JSON.parse(response);
             res.status(200).send({
-                status,
+                status: HttpResponse.Success,
                 message,
                 data
             }).end();

@@ -5,7 +5,79 @@ let should = chai.should();
 let HttpResponse = require('../Helpers/HttpResponse');
 let mockTitle = 'Some title';
 let mockCompanyDetails = 'Some Company Details';
+let mockSubmitMessage = 'Some message';
+let mockAbout = "Some About";
 chai.use(chaiHttp);
+
+describe('/POST About Us', () => {
+    it('it should create an About Us Record', (done) => {
+        let payload = {
+            about: mockAbout
+        };
+        chai.request(server)
+            .post('/form/about')
+            .send(payload)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property("status").eql(HttpResponse.Success);
+                res.body.should.have.property("message").eql("About stored");
+                res.body.should.have.property("data").eql(mockAbout);
+                done();
+            });
+    });
+});
+
+describe('/GET About Us Content', () => {
+    it('it should GET The About us content', (done) => {
+        chai.request(server)
+            .get('/form/about/get')
+            .end((err, res) => {
+                should.exist(res.body);
+                res.should.have.status(200);
+                res.body.should.be.a('Object');
+                res.body.should.have.property('about').eql(mockAbout);
+                res.body.should.have.property('status').eql(HttpResponse.Success);
+                res.body.should.have.property('message').eql('About Content');
+                done();
+            });
+    });
+});
+
+describe('/POST Submit Message', () => {
+    it('it should create a Submit Message', (done) => {
+        let payload = {
+            message: mockSubmitMessage
+        };
+        chai.request(server)
+            .post('/form/submit-message')
+            .send(payload)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property("status").eql(HttpResponse.Success);
+                res.body.should.have.property("message").eql("Submit Message stored");
+                res.body.should.have.property("data").eql(mockSubmitMessage);
+                done();
+            });
+    });
+});
+
+describe('/GET Submit Message', () => {
+    it('it should GET Submit Message', (done) => {
+        chai.request(server)
+            .get('/form/submit-message/get')
+            .end((err, res) => {
+                should.exist(res.body);
+                res.should.have.status(200);
+                res.body.should.be.a('Object');
+                res.body.should.have.property('submitMessage').eql(mockSubmitMessage);
+                res.body.should.have.property('status').eql(HttpResponse.Success);
+                res.body.should.have.property('message').eql('Submit Message Record');
+                done();
+            });
+    });
+});
 
 describe('/POST Company Details', () => {
     it('it should create a Company Details', (done) => {
