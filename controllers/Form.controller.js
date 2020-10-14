@@ -177,7 +177,7 @@ const SetFormTitle = (req, res) => {
         .then((response) => {
             let {status, message, data} = JSON.parse(response);
             res.status(200).send({
-                status:HttpResponse.Success,
+                status: HttpResponse.Success,
                 message,
                 data
             }).end();
@@ -215,9 +215,9 @@ const SetCompanyDetails = (req, res) => {
         body: {details: CompanyDetails},
     })
         .then((response) => {
-            let {status, message, data} = JSON.parse(response);
+            let {message, data} = JSON.parse(response);
             res.status(200).send({
-                status,
+                status: HttpResponse.Success,
                 message,
                 data
             }).end();
@@ -247,7 +247,7 @@ const GetCompanyDetails = (req, res) => {
         .then((response) => {
             res.status(200).send({
                 status: HttpResponse.Success,
-                message: "Form Title",
+                message: "Company Details content",
                 details: response
             }).end();
 
