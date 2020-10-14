@@ -177,7 +177,7 @@ const SetFormTitle = (req, res) => {
         .then((response) => {
             let {status, message, data} = JSON.parse(response);
             res.status(200).send({
-                status,
+                status:HttpResponse.Success,
                 message,
                 data
             }).end();
