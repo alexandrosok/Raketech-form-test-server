@@ -3,6 +3,9 @@
 NodeJs express server communication with the wp-json api.
 
 # For Development
+
+server is running on http://localhost:4007
+
 ```
 npm install
 ```
@@ -22,6 +25,8 @@ HOST=http://localhost
 ```
 
 # For Production 
+
+server is running on http://18.194.254.254:4007 
 
 .env file for production should contains
 ```
