@@ -44,6 +44,7 @@ const SetSubmitMessage = (req, res) => {
 };
 
 const GetSubmitMessage = (req, res) => {
+    console.log(`${process.env.HOST}/wp-json/raketech-form-test/v1/form/submit-message/get`);
     http({
         method: 'GET',
         uri: `${process.env.HOST}/wp-json/raketech-form-test/v1/form/submit-message/get`,
