@@ -137,7 +137,7 @@ const GetFormTitle = (req, res) => {
             res.status(200).send({
                 status: HttpResponse.Success,
                 message: "Form Title",
-                title: response
+                title: response.title
             }).end();
 
         })
@@ -246,7 +246,7 @@ const GetCompanyDetails = (req, res) => {
             res.status(200).send({
                 status: HttpResponse.Success,
                 message: "Company Details content",
-                details: response
+                details: response.details
             }).end();
 
         })
